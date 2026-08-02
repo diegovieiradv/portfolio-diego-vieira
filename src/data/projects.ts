@@ -46,3 +46,12 @@ export const projects: Project[] = [
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
+
+export function getFeaturedProjects(limit?: number): Project[] {
+  const featured = projects.filter((project) => project.featured);
+  return limit ? featured.slice(0, limit) : featured;
+}
+
+export function getProjectCategories(): string[] {
+  return Array.from(new Set(projects.map((project) => project.category))).sort();
+}
