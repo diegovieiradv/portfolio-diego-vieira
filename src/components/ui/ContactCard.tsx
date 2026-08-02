@@ -30,7 +30,7 @@ export function ContactCard({ icon: Icon, title, value, description, href }: Con
   const className =
     "group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40";
 
-  if (href) {
+  if (href && !href.startsWith("[ADICIONAR")) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
         {Content}

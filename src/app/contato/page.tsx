@@ -13,10 +13,13 @@ export const metadata: Metadata = {
     "Fale com Diego Vieira de Souza por e-mail, WhatsApp ou LinkedIn sobre oportunidades na área de desenvolvimento.",
 };
 
-function getWhatsAppUrl(): string {
+function getWhatsAppUrl(): string | null {
   const number = personal.whatsapp.replace(/\D/g, "");
+  if (!number) {
+    return null;
+  }
   const text = encodeURIComponent(personal.whatsappMessage);
-  return number ? `https://wa.me/${number}?text=${text}` : personal.whatsapp;
+  return `https://wa.me/${number}?text=${text}`;
 }
 
 export default function ContatoPage() {

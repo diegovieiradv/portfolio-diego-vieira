@@ -46,7 +46,8 @@ export function Button({
   );
 }
 
-type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+type ButtonLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+  href?: string | null;
   variant?: ButtonVariant;
   size?: ButtonSize;
   newTab?: boolean;
