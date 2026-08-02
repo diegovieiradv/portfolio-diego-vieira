@@ -1,6 +1,5 @@
-import { MessageCircle } from "lucide-react";
 import { personal } from "@/data/personal";
-import { GithubIcon, LinkedinIcon } from "@/components/shared/icons";
+import { GithubIcon, LinkedinIcon, WhatsAppIcon } from "@/components/shared/icons";
 import { cn } from "@/lib/utils";
 
 const socialLinks = [
@@ -9,7 +8,7 @@ const socialLinks = [
   {
     href: `https://wa.me/${personal.whatsapp}?text=${encodeURIComponent(personal.whatsappMessage)}`,
     label: "WhatsApp",
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
   },
 ];
 

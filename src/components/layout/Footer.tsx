@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Download, Mail, MessageCircle } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import { personal } from "@/data/personal";
-import { GithubIcon, LinkedinIcon } from "@/components/shared/icons";
+import { GithubIcon, LinkedinIcon, WhatsAppIcon } from "@/components/shared/icons";
 
 const footerLinks = [
   { href: personal.github, label: "GitHub", icon: GithubIcon, external: true },
@@ -10,7 +10,7 @@ const footerLinks = [
   {
     href: `https://wa.me/${personal.whatsapp}?text=${encodeURIComponent(personal.whatsappMessage)}`,
     label: "WhatsApp",
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     external: true,
   },
   { href: personal.resumeUrl, label: "Currículo", icon: Download, external: true },

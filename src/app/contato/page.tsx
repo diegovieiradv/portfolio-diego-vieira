@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Download, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Download, Mail, MapPin } from "lucide-react";
 import { personal } from "@/data/personal";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCard } from "@/components/ui/ContactCard";
 import { ButtonLink } from "@/components/ui/Button";
-import { LinkedinIcon } from "@/components/shared/icons";
+import { LinkedinIcon, WhatsAppIcon } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "Contato",
@@ -81,7 +81,7 @@ export default function ContatoPage() {
           <div className="mt-6 flex flex-col items-start gap-6 rounded-2xl border border-primary/30 bg-primary-subtle p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div className="flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
                 <h2 className="text-lg font-semibold text-foreground">Prefere WhatsApp?</h2>
