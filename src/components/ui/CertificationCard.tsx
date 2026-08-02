@@ -1,11 +1,22 @@
 import Image from "next/image";
 import { ArrowUpRight, Award, Clock, Sparkles, UserRound } from "lucide-react";
-import type { Certification, CertificationStatus } from "@/types/certification";
+import type { CertificateStatus, Certification, CourseStatus } from "@/types/certification";
 import { cn } from "@/lib/utils";
 
-const statusStyles: Record<CertificationStatus, string> = {
-  concluída: "bg-success/15 text-success",
-  "em andamento": "bg-warning/15 text-warning",
+const courseStatusStyles: Record<CourseStatus, string> = {
+  completed: "bg-success/15 text-success",
+  "in-progress": "bg-warning/15 text-warning",
+};
+
+const courseStatusLabel: Record<CourseStatus, string> = {
+  completed: "Concluído",
+  "in-progress": "Em andamento",
+};
+
+const certificateStatusLabel: Record<CertificateStatus, string> = {
+  available: "Certificado disponível",
+  pending: "Certificado pendente",
+  "not-applicable": "",
 };
 
 type CertificationCardProps = {
@@ -97,18 +108,33 @@ export function CertificationCard({ certification }: CertificationCardProps) {
         </ul>
       ) : null}
 
-      {certification.status || certification.credentialUrl ? (
+      {certification.courseStatus ||
+      certification.certificateStatus === "available" ||
+      certification.certificateStatus === "pending" ||
+      certification.credentialUrl ? (
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-          {certification.status ? (
-            <span
-              className={cn(
-                "inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide",
-                statusStyles[certification.status]
-              )}
-            >
-              {certification.status}
-            </span>
-          ) : null}
+          <div className="flex flex-wrap items-center gap-2">
+            {certification.courseStatus ? (
+              <span
+                className={cn(
+                  "inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide",
+                  courseStatusStyles[certification.courseStatus]
+                )}
+              >
+                {courseStatusLabel[certification.courseStatus]}
+              </span>
+            ) : null}
+
+            {certification.certificateStatus === "available" ? (
+              <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide text-primary">
+                {certificateStatusLabel.available}
+              </span>
+            ) : certification.certificateStatus === "pending" ? (
+              <span className="inline-flex items-center rounded-full bg-surface px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide text-muted">
+                {certificateStatusLabel.pending}
+              </span>
+            ) : null}
+          </div>
 
           {certification.credentialUrl ? (
             <a
