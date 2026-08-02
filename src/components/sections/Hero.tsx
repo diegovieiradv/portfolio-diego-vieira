@@ -58,7 +58,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[400px]">
+          <div className="relative mx-auto w-full max-w-[260px] self-start sm:max-w-[320px] lg:max-w-[400px]">
             <div
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-primary-glow opacity-50 blur-2xl"
