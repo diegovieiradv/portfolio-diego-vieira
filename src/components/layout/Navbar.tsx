@@ -80,11 +80,18 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-sm px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none",
-                    isActive(item.href) ? "text-primary" : "text-secondary hover:text-foreground"
+                    "group relative rounded-sm px-3 py-2 text-sm font-medium transition-colors",
+                    isActive(item.href) ? "text-primary" : "text-secondary hover:text-primary"
                   )}
                 >
                   {item.label}
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute inset-x-3 bottom-0.5 h-0.5 origin-center rounded-full bg-primary transition-transform duration-300",
+                      isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    )}
+                  />
                 </Link>
               </li>
             ))}
