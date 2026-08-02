@@ -1,12 +1,12 @@
 import { ArrowRight } from "lucide-react";
-import { certifications } from "@/data/certifications";
+import { getFeaturedCertifications } from "@/data/certifications";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ButtonLink } from "@/components/ui/Button";
 import { CertificationCard } from "@/components/ui/CertificationCard";
 
 export function FeaturedCertifications() {
-  const featured = certifications.slice(0, 3);
+  const featured = getFeaturedCertifications();
 
   return (
     <section
