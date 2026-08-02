@@ -61,6 +61,20 @@ body {
   animation: hero-ring-spin 14s linear infinite;
 }
 
+@keyframes hero-cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-hero-cursor {
+  animation: hero-cursor-blink 1s step-end infinite;
+}
+
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

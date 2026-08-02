@@ -4,6 +4,7 @@ import { personal } from "@/data/personal";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { SocialLinks } from "@/components/shared/SocialLinks";
+import { RotatingRole } from "@/components/sections/RotatingRole";
 
 export function Hero() {
   return (
@@ -22,7 +23,7 @@ export function Hero() {
             <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               {personal.name}
             </h1>
-            <p className="mt-3 font-mono text-base text-secondary sm:text-lg">{personal.role}</p>
+            <RotatingRole />
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-secondary">
               {personal.summary}
