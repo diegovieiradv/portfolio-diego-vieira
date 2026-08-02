@@ -51,7 +51,7 @@ export function CertificationsList({ certifications }: CertificationsListProps) 
             className={cn(
               "rounded-full border px-4 py-2 font-mono text-xs font-medium uppercase tracking-wide transition-colors focus-visible:outline-none",
               activeFilter === option.id
-                ? "border-primary bg-primary text-white"
+                ? "border-primary bg-primary text-background"
                 : "border-border bg-card text-secondary hover:border-primary/50 hover:text-foreground"
             )}
           >
