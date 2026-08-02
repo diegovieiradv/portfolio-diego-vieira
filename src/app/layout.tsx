@@ -68,6 +68,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <a
+          href="#conteudo"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+        >
+          Pular para o conteúdo
+        </a>
         <Navbar />
         <ScrollProgress />
         <BackToTop />
