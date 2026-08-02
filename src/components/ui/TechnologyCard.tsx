@@ -16,11 +16,11 @@ type TechnologyCardProps = {
 export function TechnologyCard({ technology }: TechnologyCardProps) {
   return (
     <div className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/60">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <h3 className="font-semibold text-foreground">{technology.name}</h3>
         <span
           className={cn(
-            "inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide",
+            "inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide",
             levelStyles[technology.level]
           )}
         >
