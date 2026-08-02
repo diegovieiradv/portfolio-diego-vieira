@@ -99,4 +99,4 @@ Next.js automaticamente.
 
 ## Licença
 
-Este projeto é de uso pessoal.
+Distribuído sob a [Licença MIT](LICENSE). Copyright © 2026 Diego Vieira de Souza.
