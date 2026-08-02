@@ -16,6 +16,6 @@ export const personal: PersonalInfo = {
   whatsapp: "[ADICIONAR WHATSAPP]",
   whatsappMessage: "Olá Diego, vi seu portfólio e gostaria de conversar sobre uma oportunidade.",
   linkedin: "[ADICIONAR LINKEDIN]",
-  github: "[ADICIONAR GITHUB]",
+  github: "diegovieiradv",
   resumeUrl: "/curriculo-diego-vieira-de-souza.pdf",
 };
