@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { certifications } from "@/data/certifications";
 import { Container } from "@/components/ui/Container";
-import { CertificationCard } from "@/components/ui/CertificationCard";
+import { CertificationsList } from "@/components/ui/CertificationsList";
 
 export const metadata: Metadata = {
   title: "Certificações",
   description:
-    "Cursos e certificações que apoiam o desenvolvimento de Diego Vieira de Souza como desenvolvedor.",
+    "Formações, cursos, certificações e graduação de Diego Vieira de Souza na área de desenvolvimento de software.",
   alternates: { canonical: "/certificacoes" },
 };
 
@@ -25,25 +25,18 @@ export default function CertificacoesPage() {
             id="titulo-certificacoes"
             className="mt-3 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl"
           >
-            Cursos e certificações
+            Formações e certificações
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-secondary">
-            Formações que complementam meus estudos e reforçam minhas bases em desenvolvimento
-            back-end e full stack.
+            Cursos, formações, certificações e graduação que apoiam meu desenvolvimento como
+            desenvolvedor back-end e full stack.
           </p>
         </Container>
       </section>
 
       <div className="py-16 sm:py-20">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((certification, index) => (
-              <CertificationCard
-                key={`${certification.title}-${index}`}
-                certification={certification}
-              />
-            ))}
-          </div>
+          <CertificationsList certifications={certifications} />
         </Container>
       </div>
     </>
