@@ -14,7 +14,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="grid items-center gap-12 py-20 md:py-28 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="grid min-h-[calc(100dvh-4rem)] items-center gap-12 py-8 md:py-12 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
             <p className="font-mono text-sm font-medium uppercase tracking-widest text-primary">
               Olá, eu sou
