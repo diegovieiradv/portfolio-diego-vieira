@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, MessageCircle } from "lucide-react";
+import { Download, Mail, MapPin, MessageCircle } from "lucide-react";
 import { personal } from "@/data/personal";
 import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCard } from "@/components/ui/ContactCard";
 import { ButtonLink } from "@/components/ui/Button";
 import { LinkedinIcon } from "@/components/shared/icons";
@@ -94,6 +95,25 @@ export default function ContatoPage() {
               className="shrink-0"
             >
               Chamar no WhatsApp
+            </ButtonLink>
+          </div>
+        </Container>
+      </section>
+
+      <section
+        aria-labelledby="titulo-curriculo"
+        className="border-t border-border bg-surface py-16 sm:py-20"
+      >
+        <Container>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeader
+              eyebrow="Currículo"
+              title="Uma versão resumida da minha trajetória"
+              description="Baixe meu currículo em PDF para conhecer melhor minha formação, experiências e habilidades."
+            />
+            <ButtonLink href={personal.resumeUrl} download variant="outline" className="shrink-0">
+              <Download className="h-4 w-4" aria-hidden="true" />
+              Baixar currículo (PDF)
             </ButtonLink>
           </div>
         </Container>
