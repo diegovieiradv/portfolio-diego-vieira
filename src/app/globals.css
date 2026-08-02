@@ -48,6 +48,19 @@ body {
   color: #090909;
 }
 
+@keyframes hero-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-hero-ring {
+  animation: hero-ring-spin 14s linear infinite;
+}
+
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

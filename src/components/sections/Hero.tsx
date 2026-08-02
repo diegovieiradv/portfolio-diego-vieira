@@ -57,10 +57,14 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[400px]">
             <div
               aria-hidden="true"
-              className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary to-amber-500 opacity-20 blur-2xl"
+              className="absolute inset-0 rounded-full bg-primary-glow opacity-50 blur-2xl"
+            />
+            <div
+              aria-hidden="true"
+              className="animate-hero-ring absolute -inset-2 rounded-full border-2 border-dashed border-primary/30"
             />
             <Image
               src="/images/photo-diego-vieira.png"
@@ -68,8 +72,8 @@ export function Hero() {
               width={640}
               height={640}
               preload
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="relative aspect-square w-full rounded-2xl border border-border object-cover"
+              sizes="(max-width: 640px) 260px, (max-width: 1024px) 320px, 400px"
+              className="relative aspect-square w-full rounded-full border border-border-light object-cover"
             />
           </div>
         </div>
