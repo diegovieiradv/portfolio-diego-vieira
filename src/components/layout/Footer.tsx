@@ -67,7 +67,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border pt-6 text-center text-sm text-muted">
           <p>
-            © {year} {personal.name}. Todos os direitos reservados.
+            © {year} {personal.name}. Todos os direitos reservados. Desenvolvido com Next.js.
           </p>
         </div>
       </div>
