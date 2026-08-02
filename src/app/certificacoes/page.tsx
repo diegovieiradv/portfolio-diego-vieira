@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Certificações",
   description:
     "Cursos e certificações que apoiam o desenvolvimento de Diego Vieira de Souza como desenvolvedor.",
+  alternates: { canonical: "/certificacoes" },
 };
 
 export default function CertificacoesPage() {

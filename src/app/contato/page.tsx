@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Contato",
   description:
     "Fale com Diego Vieira de Souza por e-mail, WhatsApp ou LinkedIn sobre oportunidades na área de desenvolvimento.",
+  alternates: { canonical: "/contato" },
 };
 
 function getWhatsAppUrl(): string | null {

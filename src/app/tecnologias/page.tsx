@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Tecnologias",
   description:
     "Tecnologias que utilizo no desenvolvimento back-end e full stack, organizadas por categoria.",
+  alternates: { canonical: "/tecnologias" },
 };
 
 export default function TecnologiasPage() {

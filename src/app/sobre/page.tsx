@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Sobre",
   description:
     "Conheça a trajetória de Diego Vieira de Souza, desenvolvedor em transição de carreira.",
+  alternates: { canonical: "/sobre" },
 };
 
 const journeyTimeline = [

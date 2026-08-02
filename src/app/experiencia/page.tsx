@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Experiência",
   description:
     "Trajetória profissional de Diego Vieira de Souza: cargos, empresas e principais entregas.",
+  alternates: { canonical: "/experiencia" },
 };
 
 export default function ExperienciaPage() {

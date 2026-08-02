@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
@@ -17,16 +18,24 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-diego-vieira.vercel.app"),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Diego Vieira de Souza | Desenvolvedor Java e Back-end",
-    template: "%s | Diego Vieira de Souza",
+    default: `${siteConfig.name} | ${siteConfig.role}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Portfólio de Diego Vieira de Souza, desenvolvedor Java com foco em back-end e full stack, " +
-    "formado em Análise e Desenvolvimento de Sistemas, trabalhando com Spring Boot, Node.js e " +
-    "PostgreSQL no Rio de Janeiro – RJ, Brasil.",
-  authors: [{ name: "Diego Vieira de Souza" }],
+  description: siteConfig.description,
+  applicationName: siteConfig.shortName,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  category: "Portfólio",
 };
 
 export default function RootLayout({

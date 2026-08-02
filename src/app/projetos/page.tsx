@@ -6,7 +6,8 @@ import { ProjectCard } from "@/components/ui/ProjectCard";
 export const metadata: Metadata = {
   title: "Projetos",
   description:
-    "Projetos desenvolvidos por Diego Vieira de Souza, com foco em back-end e full stack.",
+    "Projetos de desenvolvimento back-end e full stack de Diego Vieira de Souza, com foco em Java e Spring Boot.",
+  alternates: { canonical: "/projetos" },
 };
 
 export default function ProjetosPage() {
