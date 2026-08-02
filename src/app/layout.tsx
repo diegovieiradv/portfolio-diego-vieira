@@ -36,6 +36,28 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Portfólio",
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/og/og-cover.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — ${siteConfig.role}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.description,
+    images: ["/og/og-cover.png"],
+  },
 };
 
 export default function RootLayout({
