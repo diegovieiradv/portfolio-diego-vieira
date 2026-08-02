@@ -67,6 +67,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}>
+      <link rel="preconnect" href="https://api.github.com" />
+      <link rel="dns-prefetch" href="https://api.github.com" />
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <a
           href="#conteudo"
