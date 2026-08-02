@@ -3,15 +3,7 @@ import { technologyCategories } from "@/data/technologies";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ButtonLink } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
-import type { TechLevel } from "@/types";
-
-const levelStyles: Record<TechLevel, string> = {
-  "foco principal": "bg-primary-subtle text-primary",
-  "experiência prática": "bg-surface-secondary text-secondary",
-  "conhecimento intermediário": "bg-surface-secondary text-secondary",
-  "em aprendizado": "bg-surface-secondary text-muted",
-};
+import { TechnologyCard } from "@/components/ui/TechnologyCard";
 
 export function StackPreview() {
   const mainStack = technologyCategories[0];
@@ -35,23 +27,9 @@ export function StackPreview() {
         </div>
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {mainStack.items.map((tech) => (
-            <li
-              key={tech.name}
-              className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/60"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <p className="font-semibold text-foreground">{tech.name}</p>
-                <span
-                  className={cn(
-                    "inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide",
-                    levelStyles[tech.level]
-                  )}
-                >
-                  {tech.level}
-                </span>
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-secondary">{tech.description}</p>
+          {mainStack.items.map((technology) => (
+            <li key={technology.name}>
+              <TechnologyCard technology={technology} />
             </li>
           ))}
         </ul>
