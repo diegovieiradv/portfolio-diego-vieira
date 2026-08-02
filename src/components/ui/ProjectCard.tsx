@@ -39,7 +39,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </Link>
 
       <div className="flex flex-1 flex-col p-5">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted">{project.category}</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-muted">
+          {project.category} · {project.date}
+        </p>
         <h3 className="mt-1 text-lg font-semibold text-foreground">
           <Link href={`/projetos/${project.slug}`} className="transition-colors hover:text-primary">
             {project.title}
@@ -60,29 +62,39 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </ul>
 
-        <div className="mt-5 flex items-center gap-5 border-t border-border pt-4">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary transition-colors hover:text-primary"
-          >
-            <FolderGit2 className="h-4 w-4" aria-hidden="true" />
-            GitHub
-            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </a>
-          {project.demo ? (
+        <div className="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4">
+          <div className="flex items-center gap-5">
             <a
-              href={project.demo}
+              href={project.github}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary transition-colors hover:text-primary"
             >
-              <MonitorPlay className="h-4 w-4" aria-hidden="true" />
-              Demo
+              <FolderGit2 className="h-4 w-4" aria-hidden="true" />
+              GitHub
               <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
             </a>
-          ) : null}
+            {project.demo ? (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary transition-colors hover:text-primary"
+              >
+                <MonitorPlay className="h-4 w-4" aria-hidden="true" />
+                Demo
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            ) : null}
+          </div>
+          <Link
+            href={`/projetos/${project.slug}`}
+            aria-label={`Ver detalhes do projeto ${project.title}`}
+            className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary-light"
+          >
+            Detalhes
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </article>
