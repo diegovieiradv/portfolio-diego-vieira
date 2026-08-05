@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { Award, Clock, Eye, Sparkles, UserRound } from "lucide-react";
 import type { CertificateStatus, Certification, CourseStatus } from "@/types/certification";
 import { cn } from "@/lib/utils";
 import { hasCertificateResource } from "@/lib/certificates";
+import { CertificateViewer } from "@/components/ui/CertificateViewer";
 
 const courseStatusStyles: Record<CourseStatus, string> = {
   completed: "bg-success/15 text-success",
@@ -25,6 +29,8 @@ type CertificationCardProps = {
 };
 
 export function CertificationCard({ certification }: CertificationCardProps) {
+  const [viewerOpen, setViewerOpen] = useState(false);
+
   const canViewCertificate =
     certification.certificateStatus === "available" && hasCertificateResource(certification);
 
@@ -143,6 +149,7 @@ export function CertificationCard({ certification }: CertificationCardProps) {
           {canViewCertificate ? (
             <button
               type="button"
+              onClick={() => setViewerOpen(true)}
               aria-label={`Ver certificado de ${certification.title}`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary-subtle px-3 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary/15"
             >
@@ -152,6 +159,12 @@ export function CertificationCard({ certification }: CertificationCardProps) {
           ) : null}
         </div>
       ) : null}
+
+      <CertificateViewer
+        certification={certification}
+        open={viewerOpen}
+        onDismiss={() => setViewerOpen(false)}
+      />
     </article>
   );
 }
