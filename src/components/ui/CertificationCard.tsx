@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ArrowUpRight, Award, Clock, Sparkles, UserRound } from "lucide-react";
+import { Award, Clock, Eye, Sparkles, UserRound } from "lucide-react";
 import type { CertificateStatus, Certification, CourseStatus } from "@/types/certification";
 import { cn } from "@/lib/utils";
+import { hasCertificateResource } from "@/lib/certificates";
 
 const courseStatusStyles: Record<CourseStatus, string> = {
   completed: "bg-success/15 text-success",
@@ -24,6 +25,9 @@ type CertificationCardProps = {
 };
 
 export function CertificationCard({ certification }: CertificationCardProps) {
+  const canViewCertificate =
+    certification.certificateStatus === "available" && hasCertificateResource(certification);
+
   return (
     <article
       className={cn(
@@ -136,16 +140,15 @@ export function CertificationCard({ certification }: CertificationCardProps) {
             ) : null}
           </div>
 
-          {certification.credentialUrl ? (
-            <a
-              href={certification.credentialUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary transition-colors hover:text-primary"
+          {canViewCertificate ? (
+            <button
+              type="button"
+              aria-label={`Ver certificado de ${certification.title}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary-subtle px-3 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary/15"
             >
-              Ver certificação
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+              <Eye className="h-4 w-4" aria-hidden="true" />
+              Ver certificado
+            </button>
           ) : null}
         </div>
       ) : null}
