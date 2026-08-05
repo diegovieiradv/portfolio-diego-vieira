@@ -20,6 +20,7 @@ export type Certification = {
   date?: string | null;
   credentialUrl?: string | null;
   certificateImage?: string | null;
+  certificatePdf?: string | null;
   image?: string | null;
   featured?: boolean;
 };

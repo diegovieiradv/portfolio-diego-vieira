@@ -14,6 +14,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
     featured: true,
   },
@@ -30,6 +31,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
     featured: true,
   },
@@ -45,6 +47,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
     featured: true,
   },
@@ -62,6 +65,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
     featured: true,
   },
@@ -77,6 +81,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -92,6 +97,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -109,6 +115,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -126,6 +133,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -141,6 +149,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -157,6 +166,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -173,6 +183,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -189,6 +200,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
   {
@@ -204,6 +216,7 @@ export const certifications: Certification[] = [
     date: null,
     credentialUrl: null,
     certificateImage: null,
+    certificatePdf: null,
     image: null,
   },
 ];
