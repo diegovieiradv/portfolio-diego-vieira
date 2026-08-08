@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Award, Clock, Eye, Sparkles, UserRound } from "lucide-react";
-import type { CertificateStatus, Certification, CourseStatus } from "@/types/certification";
+import type { Certification, CourseStatus } from "@/types/certification";
 import { cn } from "@/lib/utils";
-import { hasCertificateResource } from "@/lib/certificates";
+import { getCertificateResources } from "@/lib/certificates";
 import { CertificateViewer } from "@/components/ui/CertificateViewer";
 
 const courseStatusStyles: Record<CourseStatus, string> = {
@@ -18,12 +18,6 @@ const courseStatusLabel: Record<CourseStatus, string> = {
   "in-progress": "Em andamento",
 };
 
-const certificateStatusLabel: Record<CertificateStatus, string> = {
-  available: "Certificado disponível",
-  pending: "Certificado pendente",
-  "not-applicable": "",
-};
-
 type CertificationCardProps = {
   certification: Certification;
 };
@@ -31,8 +25,10 @@ type CertificationCardProps = {
 export function CertificationCard({ certification }: CertificationCardProps) {
   const [viewerOpen, setViewerOpen] = useState(false);
 
-  const canViewCertificate =
-    certification.certificateStatus === "available" && hasCertificateResource(certification);
+  const resources = getCertificateResources(certification);
+  const hasResources = resources.length > 0;
+  const certificateButtonLabel =
+    resources.length > 1 ? "Ver certificados" : "Ver certificado";
 
   return (
     <article
@@ -119,9 +115,8 @@ export function CertificationCard({ certification }: CertificationCardProps) {
       ) : null}
 
       {certification.courseStatus ||
-      certification.certificateStatus === "available" ||
       certification.certificateStatus === "pending" ||
-      certification.credentialUrl ? (
+      hasResources ? (
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
           <div className="flex flex-wrap items-center gap-2">
             {certification.courseStatus ? (
@@ -135,26 +130,22 @@ export function CertificationCard({ certification }: CertificationCardProps) {
               </span>
             ) : null}
 
-            {certification.certificateStatus === "available" ? (
-              <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide text-primary">
-                {certificateStatusLabel.available}
-              </span>
-            ) : certification.certificateStatus === "pending" ? (
+            {certification.certificateStatus === "pending" ? (
               <span className="inline-flex items-center rounded-full bg-surface px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide text-muted">
-                {certificateStatusLabel.pending}
+                Certificado pendente
               </span>
             ) : null}
           </div>
 
-          {canViewCertificate ? (
+          {hasResources ? (
             <button
               type="button"
               onClick={() => setViewerOpen(true)}
-              aria-label={`Ver certificado de ${certification.title}`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary-subtle px-3 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary/15"
+              aria-label={`${certificateButtonLabel} de ${certification.title}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary-subtle px-3 py-1.5 font-mono text-xs font-medium uppercase tracking-wide text-primary transition-colors hover:bg-primary/15"
             >
-              <Eye className="h-4 w-4" aria-hidden="true" />
-              Ver certificado
+              <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+              {certificateButtonLabel}
             </button>
           ) : null}
         </div>
