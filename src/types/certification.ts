@@ -5,6 +5,14 @@ export type CertificateStatus = "available" | "pending" | "not-applicable";
 export type CertificationCategory =
   "certificação" | "formação" | "curso" | "imersão" | "programa" | "graduação";
 
+export type CertificateDocument = {
+  id: string;
+  title: string;
+  image?: string | null;
+  pdf?: string | null;
+  credentialUrl?: string | null;
+};
+
 export type Certification = {
   id: string;
   title: string;
@@ -21,6 +29,7 @@ export type Certification = {
   credentialUrl?: string | null;
   certificateImage?: string | null;
   certificatePdf?: string | null;
+  certificates?: CertificateDocument[];
   image?: string | null;
   featured?: boolean;
 };
