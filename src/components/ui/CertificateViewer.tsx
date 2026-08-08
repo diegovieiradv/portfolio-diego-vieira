@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { KeyboardEvent } from "react";
-import { BadgeCheck, Download, ExternalLink, FileText, X } from "lucide-react";
+import {
+  BadgeCheck,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  ExternalLink,
+  FileText,
+  X,
+} from "lucide-react";
 import type { Certification } from "@/types/certification";
-import { getCertificateResource } from "@/lib/certificates";
+import { getCertificateResources } from "@/lib/certificates";
 
 type CertificateViewerProps = {
   certification: Certification;
@@ -21,6 +29,12 @@ export function CertificateViewer({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onDismissRef = useRef(onDismiss);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const resources = getCertificateResources(certification);
+  const resource =
+    resources[currentIndex] ?? resources[0] ?? null;
+  const displayTitle = resource?.title ?? certification.title;
 
   useEffect(() => {
     onDismissRef.current = onDismiss;
@@ -44,7 +58,10 @@ export function CertificateViewer({
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    const handleClose = () => onDismissRef.current();
+    const handleClose = () => {
+      setCurrentIndex(0);
+      onDismissRef.current();
+    };
     dialog.addEventListener("close", handleClose);
     return () => dialog.removeEventListener("close", handleClose);
   }, []);
@@ -61,6 +78,16 @@ export function CertificateViewer({
   }, [open]);
 
   const handleDialogKeyDown = (event: KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key === "ArrowLeft" && currentIndex > 0) {
+      setCurrentIndex((index) => index - 1);
+      return;
+    }
+
+    if (event.key === "ArrowRight" && currentIndex < resources.length - 1) {
+      setCurrentIndex((index) => index + 1);
+      return;
+    }
+
     if (event.key !== "Tab") return;
 
     const dialog = dialogRef.current;
@@ -87,9 +114,9 @@ export function CertificateViewer({
     }
   };
 
-  const resource = getCertificateResource(certification);
   const titleId = `certificado-titulo-${certification.id}`;
   const descriptionId = `certificado-descricao-${certification.id}`;
+  const hasMultiple = resources.length > 1;
 
   return (
     <dialog
@@ -108,12 +135,12 @@ export function CertificateViewer({
     >
       <div className="flex max-h-[85vh] flex-col overflow-hidden">
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
-          <div>
+          <div className="min-w-0">
             <h2
               id={titleId}
               className="text-lg font-semibold leading-snug text-foreground"
             >
-              {certification.title}
+              {displayTitle}
             </h2>
             {certification.institution ? (
               <p id={descriptionId} className="mt-0.5 text-sm text-muted">
@@ -121,9 +148,17 @@ export function CertificateViewer({
               </p>
             ) : (
               <p id={descriptionId} className="sr-only">
-                Certificado de {certification.title}
+                Certificado de {displayTitle}
               </p>
             )}
+            {hasMultiple ? (
+              <p
+                aria-live="polite"
+                className="mt-1 font-mono text-xs uppercase tracking-wide text-primary"
+              >
+                Certificado {currentIndex + 1} de {resources.length}
+              </p>
+            ) : null}
           </div>
 
           <button
@@ -137,11 +172,39 @@ export function CertificateViewer({
           </button>
         </div>
 
+        {hasMultiple ? (
+          <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3 sm:px-6">
+            <button
+              type="button"
+              onClick={() => setCurrentIndex((index) => Math.max(0, index - 1))}
+              disabled={currentIndex === 0}
+              aria-label="Certificado anterior"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 font-mono text-xs font-medium text-secondary transition-colors hover:border-primary/50 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+              Anterior
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentIndex((index) => Math.min(resources.length - 1, index + 1))
+              }
+              disabled={currentIndex === resources.length - 1}
+              aria-label="Próximo certificado"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 font-mono text-xs font-medium text-secondary transition-colors hover:border-primary/40 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Próximo
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        ) : null}
+
         <div className="flex-1 overflow-y-auto p-5 sm:p-6">
           {resource?.kind === "image" ? (
             <Image
               src={resource.url}
-              alt={`Certificado de ${certification.title}${
+              alt={`Certificado de ${displayTitle}${
                 certification.institution
                   ? ` emitido pela instituição ${certification.institution}`
                   : ""
@@ -157,7 +220,7 @@ export function CertificateViewer({
             <>
               <iframe
                 src={`${resource.url}#toolbar=0`}
-                title={`Prévia do certificado ${certification.title}`}
+                title={`Prévia do certificado ${displayTitle}`}
                 className="hidden h-[60vh] w-full rounded-md border border-border bg-surface sm:block"
               />
               <div className="flex flex-col items-center gap-3 py-10 text-center sm:hidden">
