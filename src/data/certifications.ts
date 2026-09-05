@@ -364,6 +364,22 @@ export const certifications: Certification[] = [
     ],
     image: null,
   },
+  {
+    id: "hackathon-alura-one-g9",
+    title: "Hackathon G9 — Alura / Oracle Next Education",
+    institution: "Alura",
+    category: "programa",
+    area: "Desenvolvimento de Software",
+    courseStatus: "completed",
+    certificateStatus: "available",
+    description:
+      "Participação em hackathon promovido pela Alura no contexto do programa Oracle Next Education.",
+    date: null,
+    credentialUrl: null,
+    certificateImage: null,
+    certificatePdf: "/certifications/hackathon-alura-one-g9.pdf",
+    image: null,
+  },
 ];
 
 export function getFeaturedCertifications(limit = 3): Certification[] {
