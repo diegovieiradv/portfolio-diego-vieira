@@ -47,6 +47,7 @@ export const experiences: Experience[] = [
       "Docker",
       "Git",
       "GitHub",
+      "n8n",
     ],
   },
 ];

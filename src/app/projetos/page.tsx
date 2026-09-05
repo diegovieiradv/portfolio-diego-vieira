@@ -27,10 +27,10 @@ export default function ProjetosPage() {
             id="titulo-projetos"
             className="mt-3 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl"
           >
-            Projetos que desenvolvi
+            Alguns dos projetos que desenvolvi
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-secondary">
-            Aplicações criadas para consolidar conhecimentos em Java, Spring Boot e desenvolvimento
+            Aplicações criadas para consolidar conhecimentos em Java, Spring Boot, Node.js e desenvolvimento
             full stack. Cada projeto apresenta contexto, arquitetura e aprendizados.
           </p>
         </Container>
