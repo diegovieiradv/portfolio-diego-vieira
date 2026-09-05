@@ -14,7 +14,7 @@ export const siteConfig: {
   locale: "pt-BR",
   description:
     "Portfólio de Diego Vieira de Souza, desenvolvedor Java com foco em back-end e full stack, " +
-    "formado em Análise e Desenvolvimento de Sistemas, trabalhando com Spring Boot, Node.js e " +
+    "graduando em Análise e Desenvolvimento de Sistemas, trabalhando com Spring Boot, Node.js e " +
     "PostgreSQL no Rio de Janeiro – RJ, Brasil.",
   keywords: [
     "desenvolvedor java",

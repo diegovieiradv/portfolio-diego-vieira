@@ -6,16 +6,16 @@ export const personal: PersonalInfo = {
   role: "Desenvolvedor Java | Back-end | Full Stack",
   location: "Rio de Janeiro – RJ, Brasil",
   summary:
-    "Desenvolvedor em transição de carreira, formado em Análise e Desenvolvimento de Sistemas, " +
+    "Desenvolvedor em transição de carreira, graduando em Análise e Desenvolvimento de Sistemas, " +
     "com foco em Java e Spring Boot. Construo minha experiência prática por meio de projetos de " +
     "back-end e full stack, com interesse em aprender continuamente e aplicar boas práticas de " +
     "desenvolvimento.",
   availability: "Disponível para novas oportunidades",
-  email: "[ADICIONAR E-MAIL]",
-  phone: "[ADICIONAR TELEFONE]",
-  whatsapp: "[ADICIONAR WHATSAPP]",
+  email: "dvdiego87@gmail.com",
+  phone: "(21) 99141-3926",
+  whatsapp: "5521991413926",
   whatsappMessage: "Olá Diego, vi seu portfólio e gostaria de conversar sobre uma oportunidade.",
-  linkedin: "[ADICIONAR LINKEDIN]",
-  github: "diegovieiradv",
+  linkedin: "https://www.linkedin.com/in/diego-vieira-de-souza",
+  github: "https://github.com/diegovieiradv",
   resumeUrl: "/curriculo-diego-vieira-de-souza.pdf",
 };
