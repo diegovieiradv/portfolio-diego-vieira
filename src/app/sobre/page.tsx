@@ -17,24 +17,24 @@ const journeyTimeline = [
     title: "Primeiros passos na programação",
     description:
       "Início dos estudos em lógica de programação e fundamentos do desenvolvimento de software.",
-    date: "[ANO]",
+    date: "2024",
   },
   {
     title: "Formação em Análise e Desenvolvimento de Sistemas",
     description: "Ingresso no curso para estruturar o aprendizado de forma acadêmica.",
-    date: "[ANO]",
+    date: "2025",
   },
   {
     title: "Foco em Java e Spring Boot",
     description:
       "Dedicação ao ecossistema Java, com APIs REST, Spring Data e banco de dados relacionais.",
-    date: "[ANO]",
+    date: "2025",
   },
   {
     title: "Projetos práticos",
     description:
       "Desenvolvimento de projetos de back-end e full stack para consolidar o conhecimento.",
-    date: "[PERÍODO]",
+    date: "Em andamento",
   },
   {
     title: "Transição de carreira",
