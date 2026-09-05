@@ -42,6 +42,12 @@ const journeyTimeline = [
       "Busca ativa por oportunidades na área de tecnologia, aplicando o aprendizado em projetos reais.",
     date: "Em andamento",
   },
+  {
+    title: "Automação e integrações",
+    description:
+      "Exploração de ferramentas como n8n para automatizar processos e integrar sistemas.",
+    date: "Em andamento",
+  },
 ];
 
 const goals = [
@@ -49,6 +55,7 @@ const goals = [
   "Atuar como desenvolvedor back-end e evoluir para o full stack.",
   "Aprofundar boas práticas, testes automatizados e arquitetura de software.",
   "Contribuir em projetos em equipe, aprendendo e compartilhando conhecimento.",
+  "Explorar automações e integrações entre sistemas, conectando ferramentas e APIs para otimizar processos.",
 ];
 
 const workValues = [

@@ -146,4 +146,15 @@ export const technologyCategories: TechnologyCategory[] = [
       },
     ],
   },
+  {
+    category: "Automação e Integrações",
+    items: [
+      {
+        name: "n8n",
+        level: "em aprendizado",
+        description:
+          "Automação de workflows e integração entre sistemas, conectando APIs e ferramentas de forma visual.",
+      },
+    ],
+  },
 ];
