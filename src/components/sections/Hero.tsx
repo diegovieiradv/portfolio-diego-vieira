@@ -68,8 +68,8 @@ export function Hero() {
               className="animate-hero-ring absolute -inset-2 rounded-full border-2 border-dashed border-primary/30"
             />
             <Image
-              src="/images/photo-diego-vieira.png"
-              alt={`Foto de ${personal.name}, ${personal.role}`}
+              src="/images/foto-perfil.png"
+              alt="Diego Vieira de Souza — Desenvolvedor"
               width={640}
               height={640}
               preload
