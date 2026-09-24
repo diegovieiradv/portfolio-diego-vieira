@@ -17,5 +17,5 @@ export const personal: PersonalInfo = {
   whatsappMessage: "Olá Diego, vi seu portfólio e gostaria de conversar sobre uma oportunidade.",
   linkedin: "https://www.linkedin.com/in/diego-vieira-de-souza",
   github: "https://github.com/diegovieiradv",
-  resumeUrl: "/curriculo-diego-vieira-de-souza.pdf",
+  resumeUrl: "/curriculo-diego-vieira-backend-fullstack.pdf",
 };
