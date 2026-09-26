@@ -12,6 +12,12 @@ export const projects: Project[] = [
       "Necessidade de uma API robusta para gerenciar operações de clínica médica, com controle de acesso, validação de dados e regras de negócio específicas do domínio.",
     solution:
       "API RESTful com Spring Boot, Spring Security JWT, Flyway para migrations, validações customizadas e integração com ViaCEP para consulta de endereços.",
+    features: [
+      "Autenticação JWT com refresh token",
+      "Validações customizadas de CPF e CEP",
+      "Agendamento e cancelamento de consultas",
+      "Documentação OpenAPI",
+    ],
     technologies: [
       "Java 17",
       "Spring Boot 3.2.5",
@@ -54,6 +60,13 @@ export const projects: Project[] = [
       "Criar um jogo web completo e acessível que funcione em desktop e mobile, com jogabilidade estratégica, física arcade e sistema de progressão.",
     solution:
       "Arquitetura com Next.js 15 para SSR/SSG, Phaser 3 para o engine de jogo, Zustand para estado global, sistema de PWA para instalação offline e suporte a gamepad.",
+    features: [
+      "8 personagens e 24 estágios",
+      "6 chefes e IA com 3 níveis de dificuldade",
+      "Terreno destrutível e habilidades especiais",
+      "Sistema de save, export e import",
+    ],
+    highlights: ["246 testes unitários", "24 estágios e 6 chefes", "Suporte a PWA e gamepad"],
     technologies: [
       "Next.js 15",
       "React 18",
@@ -99,6 +112,11 @@ export const projects: Project[] = [
       "Necessidade de uma interface web intuitiva para interagir com a API Voll.med, permitindo que usuários gestionem operações de clínica médica de forma visual.",
     solution:
       "Aplicação React com rotas protegidas, formulários validados, integração com a API backend e design responsivo.",
+    features: [
+      "Rotas protegidas com autenticação JWT",
+      "Formulários com validação de entrada em tempo real",
+      "Interface responsiva para médicos, pacientes e consultas",
+    ],
     technologies: ["React", "JavaScript", "CSS", "REST API"],
     architecture:
       "Aplicação SPA com componentização, rotas protegidas e consumo de API RESTful.",
@@ -131,6 +149,11 @@ export const projects: Project[] = [
       "Criar uma API que sirva dados de frases de séries e filmes para um frontend de exibição, com CORS configurado para integração.",
     solution:
       "API Spring Boot com Spring Data JPA, PostgreSQL e endpoint único que retorna frases aleatórias com dados completos.",
+    features: [
+      "Endpoint único com frases aleatórias",
+      "Dados de título, frase, personagem e poster",
+      "CORS configurado para integração com frontend",
+    ],
     technologies: ["Java 17", "Spring Boot 3.2.3", "Spring Data JPA", "PostgreSQL", "Maven"],
     architecture:
       "API simples com um endpoint REST, camada de persistência com Spring Data JPA e banco PostgreSQL.",
@@ -163,6 +186,11 @@ export const projects: Project[] = [
       "Criar uma API mockada com autenticação real para estudar rotas protegidas e JWT em Node.js.",
     solution:
       "API com json-server para dados, jsonwebtoken para autenticação JWT e body-parser para processamento de requisições.",
+    features: [
+      "Autenticação JWT com registro e login",
+      "Rotas protegidas para livros, autores, categorias, lançamentos e bestsellers",
+      "Verificação de token em middleware",
+    ],
     technologies: ["Node.js", "json-server", "jsonwebtoken", "body-parser", "REST API"],
     architecture:
       "API mockada com json-server como banco de dados em memória, middleware de autenticação JWT e rotas organizadas por recurso.",
@@ -195,6 +223,12 @@ export const projects: Project[] = [
       "Criar um assistente de IA acessível que ajude jogadores a encontrar estratégias e builds para seus jogos favoritos.",
     solution:
       "Interface web com HTML/CSS/JS que consome a API do Google Gemini, com design glass morphism, responsivo e deploy na Vercel.",
+    features: [
+      "Estratégias, builds e dicas para 8 jogos",
+      "Integração com a API do Google Gemini",
+      "Interface glass morphism responsiva",
+      "Deploy na Vercel",
+    ],
     technologies: ["HTML5", "CSS3", "JavaScript", "Google Gemini API", "Showdown.js", "Vercel"],
     architecture:
       "Aplicação frontend estática com consumo de API externa (Gemini), markdown renderizado com Showdown.js e deploy estático.",
@@ -228,6 +262,11 @@ export const projects: Project[] = [
       "Criar uma ferramenta simples para consultar endereços por CEP e exportar os dados formatados.",
     solution:
       "Aplicação Java que consome a API ViaCEP via HttpClient, utiliza records para modelagem de dados e Gson para serialização JSON.",
+    features: [
+      "Consulta de endereços pela API ViaCEP",
+      "Exportação de dados para JSON",
+      "Modelagem de dados com Java Records",
+    ],
     technologies: ["Java 16+", "HttpClient", "Gson", "ViaCEP API"],
     architecture:
       "Aplicação console com modelo de dados baseado em records, consumo de API REST externa e exportação de dados.",
@@ -260,6 +299,12 @@ export const projects: Project[] = [
       "Praticar habilidades de frontend recriando uma interface real e popular para estudar layouts responsivos.",
     solution:
       "Página estática com HTML semântico, CSS Flexbox para layout, media queries para responsividade e JavaScript para animação de imagens.",
+    features: [
+      "Recriação fiel da página de login do Instagram",
+      "Layout responsivo com Flexbox e media queries",
+      "Animação de rotação automática de imagens",
+      "Deploy na Vercel",
+    ],
     technologies: ["HTML5", "CSS3", "Flexbox", "Media Queries", "JavaScript", "Vercel"],
     architecture:
       "Página estática com estrutura semântica, layout Flexbox responsivo e animações CSS/JavaScript.",
@@ -281,6 +326,162 @@ export const projects: Project[] = [
     date: "Fev/2025",
     featured: false,
     category: "Front-end",
+  },
+  {
+    title: "Sentinel",
+    slug: "sentinel",
+    summary:
+      "Plataforma de observabilidade e gerenciamento de incidentes — conceito em planejamento.",
+    description:
+      "Conceito de uma plataforma para centralizar o monitoramento, a captura de eventos e o tratamento de incidentes de aplicações e sistemas em um único fluxo de trabalho. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Centralizar o monitoramento de aplicações e sistemas em um único lugar.",
+      "Capturar e registrar eventos relevantes das aplicações.",
+      "Definir um fluxo de tratamento de incidentes, do alerta à resolução.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Back-end",
+  },
+  {
+    title: "FlowForge",
+    slug: "flowforge",
+    summary: "Plataforma de automação visual de workflows — conceito em planejamento.",
+    description:
+      "Conceito de uma plataforma para criação e execução de fluxos automatizados, incluindo integrações entre serviços, por meio de uma construção visual de workflows. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Criar fluxos automatizados em uma interface visual.",
+      "Executar os fluxos encadeando as etapas definidas.",
+      "Conectar serviços externos aos fluxos por meio de integrações.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Automação",
+  },
+  {
+    title: "DevGuard AI",
+    slug: "devguard-ai",
+    summary:
+      "Revisão inteligente de código e Pull Requests com apoio de IA — conceito em planejamento.",
+    description:
+      "Conceito de uma solução para auxiliar na análise de código e na revisão de mudanças em repositórios, aplicando inteligência artificial ao processo de revisão de Pull Requests. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Reunir as mudanças propostas em Pull Requests para análise.",
+      "Apontar pontos de atenção durante a revisão de código.",
+      "Apoiar o desenvolvedor na leitura das mudanças propostas.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "IA",
+  },
+  {
+    title: "CloudVault",
+    slug: "cloudvault",
+    summary: "Armazenamento seguro de arquivos na nuvem — conceito em planejamento.",
+    description:
+      "Conceito de uma solução para armazenamento seguro de arquivos, prevendo nuvem, controle de permissões e versionamento como princípios do produto. Esses pontos descrevem o conceito previsto, não uma implementação existente: a stack e as funcionalidades serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Armazenar arquivos em um ambiente em nuvem.",
+      "Definir permissões de acesso aos arquivos.",
+      "Manter o histórico de versões dos arquivos.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Back-end",
+  },
+  {
+    title: "QueueFlow",
+    slug: "queueflow",
+    summary: "Sistema de filas inteligentes em tempo real — conceito em planejamento.",
+    description:
+      "Conceito de um sistema de filas inteligentes operado em tempo real, pensado para organizar o processamento de itens conforme chegam. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Definir o modelo de filas e o fluxo de itens.",
+      "Processar os itens em tempo real.",
+      "Detalhar os critérios inteligentes de gestão das filas.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Back-end",
+  },
+  {
+    title: "DataPulse AI",
+    slug: "datapulse-ai",
+    summary: "Análise de dados em linguagem natural — conceito em planejamento.",
+    description:
+      "Conceito de uma solução para análise de dados por meio de linguagem natural, permitindo formular perguntas sobre dados em texto corrido. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Definir o formato das perguntas em linguagem natural.",
+      "Estruturar a análise dos dados a partir do texto informado.",
+      "Apresentar as respostas obtidas a partir da análise.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "IA",
+  },
+  {
+    title: "CivicFlow",
+    slug: "civicflow",
+    summary: "Solução colaborativa para acessibilidade urbana — conceito em planejamento.",
+    description:
+      "Conceito de uma solução colaborativa relacionada à acessibilidade urbana, pensada para reunir contribuições sobre o tema. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Definir como as contribuições sobre acessibilidade serão registradas.",
+      "Estruturar a colaboração entre os participantes.",
+      "Organizar as contribuições em um espaço único.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Full stack",
+  },
+  {
+    title: "EcoGrid",
+    slug: "ecogrid",
+    summary:
+      "Acompanhamento de consumo e desperdício de energia e água — conceito em planejamento.",
+    description:
+      "Conceito de uma solução para acompanhar o consumo e o desperdício de energia e água, trazendo visão sobre os hábitos de uso. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Registrar o consumo de energia e água.",
+      "Identificar desperdícios a partir dos dados registrados.",
+      "Acompanhar a evolução do consumo ao longo do tempo.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Full stack",
+  },
+  {
+    title: "Metric Flow",
+    slug: "metric-flow",
+    summary: "Dashboard de métricas de negócio e vendas — conceito em planejamento.",
+    description:
+      "Conceito de um dashboard de métricas de negócio e vendas, reunindo vendas realizadas, desempenho, metas, métricas, gráficos e projeções em um painel único. O projeto está em fase de planejamento: a stack e as funcionalidades específicas serão definidas durante a implementação.",
+    technologies: [],
+    roadmap: [
+      "Consolidar vendas realizadas e desempenho.",
+      "Definir metas e métricas do negócio.",
+      "Exibir gráficos e projeções em um painel único.",
+    ],
+    status: "planejado",
+    images: ["/projects/placeholder.png"],
+    featured: false,
+    category: "Full stack",
   },
 ];
 
