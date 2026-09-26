@@ -1,22 +1,27 @@
-export type ProjectStatus = "concluído" | "em desenvolvimento";
+export type ProjectStatus = "concluído" | "em desenvolvimento" | "planejado";
 
 export type Project = {
   title: string;
   slug: string;
   summary: string;
   description: string;
-  problem: string;
-  solution: string;
+  problem?: string;
+  solution?: string;
+  benefits?: string[];
+  features?: string[];
+  highlights?: string[];
   technologies: string[];
-  architecture: string;
-  challenges: string[];
-  learnings: string[];
+  plannedTechnologies?: string[];
+  architecture?: string;
+  challenges?: string[];
+  learnings?: string[];
+  roadmap?: string[];
   status: ProjectStatus;
-  role: string;
-  github: string;
+  role?: string;
+  github?: string;
   demo?: string;
   images: string[];
-  date: string;
+  date?: string;
   featured: boolean;
   category: string;
 };
