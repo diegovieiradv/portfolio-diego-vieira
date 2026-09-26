@@ -4,8 +4,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, FolderGit2, MonitorPlay } from "lucide-react";
 import { projects, getProjectBySlug } from "@/data/projects";
+import type { Project } from "@/types/project";
 import { Container } from "@/components/ui/Container";
+import { ProjectNavigation } from "@/components/ui/ProjectNavigation";
 import { cn } from "@/lib/utils";
+
+function sectionId(title: string): string {
+  const slug = title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `secao-${slug}`;
+}
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,13 +33,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return { title: "Projeto não encontrado" };
   }
-  return { title: project.title, description: project.summary };
+
+  const imageUrl = project.images[0] ?? "/projects/placeholder.png";
+  const image = {
+    url: imageUrl,
+    width: 1200,
+    height: 630,
+    alt: `Imagem do projeto ${project.title}`,
+  };
+
+  return {
+    title: project.title,
+    description: project.summary,
+    alternates: { canonical: `/projetos/${project.slug}` },
+    openGraph: {
+      type: "website",
+      title: project.title,
+      description: project.summary,
+      url: `/projetos/${project.slug}`,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.summary,
+      images: [imageUrl],
+    },
+  };
 }
 
-const statusStyles: Record<string, string> = {
+const statusStyles: Record<Project["status"], string> = {
   concluído: "bg-success/15 text-success",
   "em desenvolvimento": "bg-warning/15 text-warning",
+  planejado: "bg-muted/15 text-muted",
 };
+
+type ContentSection = {
+  title: string;
+  paragraphs?: string[];
+  list?: string[];
+  note?: string;
+};
+
+const bulletItemClass = "flex items-start gap-3 text-base leading-relaxed text-secondary";
 
 export default async function ProjetoPage({ params }: Props) {
   const { slug } = await params;
@@ -36,23 +84,34 @@ export default async function ProjetoPage({ params }: Props) {
     notFound();
   }
 
-  const sections = [
+  const sections: ContentSection[] = [
     {
       title: "Contexto e descrição",
       paragraphs: [project.description],
     },
-    {
-      title: "Problema",
-      paragraphs: [project.problem],
-    },
-    {
-      title: "Solução",
-      paragraphs: [project.solution],
-    },
-    {
-      title: "Arquitetura",
-      paragraphs: [project.architecture],
-    },
+    ...(project.benefits?.length
+      ? [{ title: "Finalidade e benefícios", list: project.benefits }]
+      : []),
+    ...(project.problem ? [{ title: "Problema", paragraphs: [project.problem] }] : []),
+    ...(project.solution ? [{ title: "Solução", paragraphs: [project.solution] }] : []),
+    ...(project.features?.length ? [{ title: "Funcionalidades", list: project.features }] : []),
+    ...(project.architecture ? [{ title: "Arquitetura", paragraphs: [project.architecture] }] : []),
+    ...(project.highlights?.length
+      ? [{ title: "Destaques técnicos", list: project.highlights }]
+      : []),
+    ...(project.challenges?.length
+      ? [{ title: "Desafios técnicos", list: project.challenges }]
+      : []),
+    ...(project.learnings?.length ? [{ title: "Aprendizados", list: project.learnings }] : []),
+    ...(project.roadmap?.length
+      ? [
+          {
+            title: "Roadmap / Planejado",
+            list: project.roadmap,
+            note: "Conteúdo planejado: estas etapas ainda não foram implementadas.",
+          },
+        ]
+      : []),
   ];
 
   const infoItems = [
@@ -60,7 +119,9 @@ export default async function ProjetoPage({ params }: Props) {
     { label: "Categoria", value: project.category },
     { label: "Data", value: project.date },
     { label: "Função", value: project.role },
-  ];
+  ].filter((item) => Boolean(item.value));
+
+  const hasLinks = Boolean(project.github) || Boolean(project.demo);
 
   return (
     <>
@@ -109,70 +170,57 @@ export default async function ProjetoPage({ params }: Props) {
             />
           </div>
 
+          <ProjectNavigation currentSlug={project.slug} projects={projects} />
+
+          {project.status === "planejado" ? (
+            <aside
+              role="note"
+              className="mt-6 rounded-xl border border-border bg-card px-5 py-4 text-sm leading-relaxed text-secondary"
+            >
+              Projeto em planejamento. As informações abaixo descrevem o conceito previsto;
+              funcionalidades, tecnologias e links serão adicionados conforme a implementação
+              avançar.
+            </aside>
+          ) : null}
+
           <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_320px]">
             <div className="space-y-12">
               {sections.map((section) => (
                 <section
                   key={section.title}
-                  aria-labelledby={`secao-${section.title.toLowerCase().replace(/\s/g, "-")}`}
+                  aria-labelledby={sectionId(section.title)}
                 >
                   <h2
-                    id={`secao-${section.title.toLowerCase().replace(/\s/g, "-")}`}
+                    id={sectionId(section.title)}
                     className="text-2xl font-semibold text-foreground"
                   >
                     {section.title}
                   </h2>
-                  {section.paragraphs.map((paragraph) => (
+                  {section.paragraphs?.map((paragraph) => (
                     <p key={paragraph} className="mt-3 text-base leading-relaxed text-secondary">
                       {paragraph}
                     </p>
                   ))}
+                  {section.list ? (
+                    <ul className="mt-4 space-y-3">
+                      {section.list.map((item) => (
+                        <li key={item} className={bulletItemClass}>
+                          <span
+                            className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                            aria-hidden="true"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {section.note ? <p className="mt-3 text-sm text-muted">{section.note}</p> : null}
                 </section>
               ))}
 
-              <section aria-labelledby="secao-desafios-tecnicos">
-                <h2 id="secao-desafios-tecnicos" className="text-2xl font-semibold text-foreground">
-                  Desafios técnicos
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {project.challenges.map((challenge) => (
-                    <li
-                      key={challenge}
-                      className="flex items-start gap-3 text-base leading-relaxed text-secondary"
-                    >
-                      <span
-                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
-                        aria-hidden="true"
-                      />
-                      {challenge}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section aria-labelledby="secao-aprendizados">
-                <h2 id="secao-aprendizados" className="text-2xl font-semibold text-foreground">
-                  Aprendizados
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {project.learnings.map((learning) => (
-                    <li
-                      key={learning}
-                      className="flex items-start gap-3 text-base leading-relaxed text-secondary"
-                    >
-                      <span
-                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
-                        aria-hidden="true"
-                      />
-                      {learning}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
               {project.images.length > 1 ? (
-                <section aria-labelledby="secao-galeria">
-                  <h2 id="secao-galeria" className="text-2xl font-semibold text-foreground">
+                <section aria-labelledby={sectionId("Galeria")}>
+                  <h2 id={sectionId("Galeria")} className="text-2xl font-semibold text-foreground">
                     Galeria
                   </h2>
                   <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -208,46 +256,70 @@ export default async function ProjetoPage({ params }: Props) {
                   ))}
                 </dl>
 
-                <div className="mt-6">
-                  <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                    Tecnologias
-                  </p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <li
-                        key={tech}
-                        className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs text-secondary"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {project.technologies.length > 0 ? (
+                  <div className="mt-6">
+                    <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                      Tecnologias
+                    </p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <li
+                          key={tech}
+                          className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs text-secondary"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
 
-                <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-amber-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:from-primary-dark hover:to-primary"
-                  >
-                    <FolderGit2 className="h-4 w-4" aria-hidden="true" />
-                    Ver no GitHub
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </a>
-                  {project.demo ? (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
-                    >
-                      <MonitorPlay className="h-4 w-4" aria-hidden="true" />
-                      Ver demonstração
-                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                  ) : null}
-                </div>
+                {project.plannedTechnologies?.length ? (
+                  <div className="mt-6">
+                    <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                      Tecnologias <span className="text-primary">planejadas</span>
+                    </p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {project.plannedTechnologies.map((tech) => (
+                        <li
+                          key={tech}
+                          className="rounded-md border border-dashed border-border bg-surface px-2 py-0.5 font-mono text-xs text-secondary"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                {hasLinks ? (
+                  <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">
+                    {project.github ? (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-amber-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:from-primary-dark hover:to-primary"
+                      >
+                        <FolderGit2 className="h-4 w-4" aria-hidden="true" />
+                        Ver no GitHub
+                        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                    ) : null}
+                    {project.demo ? (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+                      >
+                        <MonitorPlay className="h-4 w-4" aria-hidden="true" />
+                        Ver demonstração
+                        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </aside>
           </div>
