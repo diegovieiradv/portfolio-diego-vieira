@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { projects, getProjectCategories } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { Container } from "@/components/ui/Container";
-import { ProjectCard } from "@/components/ui/ProjectCard";
+import { ProjectCatalog } from "@/components/ui/ProjectCatalog";
 
 export const metadata: Metadata = {
   title: "Projetos",
@@ -11,8 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function ProjetosPage() {
-  const categories = getProjectCategories();
-
   return (
     <>
       <section
@@ -38,22 +36,7 @@ export default function ProjetosPage() {
 
       <div className="py-16 sm:py-20">
         <Container>
-          <ul className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <li
-                key={category}
-                className="rounded-full border border-border bg-card px-3 py-1 font-mono text-xs text-secondary"
-              >
-                {category}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
+          <ProjectCatalog projects={projects} />
         </Container>
       </div>
     </>
