@@ -86,15 +86,28 @@ export default async function ProjetoPage({ params }: Props) {
 
   const sections: ContentSection[] = [
     {
-      title: "Contexto e descrição",
+      title: "Sobre o projeto",
       paragraphs: [project.description],
     },
-    ...(project.benefits?.length
-      ? [{ title: "Finalidade e benefícios", list: project.benefits }]
-      : []),
     ...(project.problem ? [{ title: "Problema", paragraphs: [project.problem] }] : []),
     ...(project.solution ? [{ title: "Solução", paragraphs: [project.solution] }] : []),
-    ...(project.features?.length ? [{ title: "Funcionalidades", list: project.features }] : []),
+    ...(project.audience ? [{ title: "Para quem é", paragraphs: [project.audience] }] : []),
+    ...(project.features?.length
+      ? [
+          {
+            title: "Funcionalidades",
+            list: project.features,
+            ...(project.status === "planejado"
+              ? {
+                  note: "Funcionalidades planejadas: ainda não foram implementadas.",
+                }
+              : {}),
+          },
+        ]
+      : []),
+    ...(project.benefits?.length
+      ? [{ title: "Benefícios e diferenciais", list: project.benefits }]
+      : []),
     ...(project.architecture ? [{ title: "Arquitetura", paragraphs: [project.architecture] }] : []),
     ...(project.highlights?.length
       ? [{ title: "Destaques técnicos", list: project.highlights }]
@@ -106,9 +119,13 @@ export default async function ProjetoPage({ params }: Props) {
     ...(project.roadmap?.length
       ? [
           {
-            title: "Roadmap / Planejado",
+            title: "Roadmap",
             list: project.roadmap,
-            note: "Conteúdo planejado: estas etapas ainda não foram implementadas.",
+            ...(project.status === "planejado"
+              ? {
+                  note: "Conteúdo planejado: estas etapas ainda não foram implementadas.",
+                }
+              : {}),
           },
         ]
       : []),

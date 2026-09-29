@@ -7,6 +7,7 @@ export type Project = {
   description: string;
   problem?: string;
   solution?: string;
+  audience?: string;
   benefits?: string[];
   features?: string[];
   highlights?: string[];
