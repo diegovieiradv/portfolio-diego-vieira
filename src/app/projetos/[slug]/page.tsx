@@ -87,7 +87,7 @@ export default async function ProjetoPage({ params }: Props) {
   const sections: ContentSection[] = [
     {
       title: "Sobre o projeto",
-      paragraphs: [project.description],
+      paragraphs: project.description.split('\n\n').filter(Boolean),
     },
     ...(project.problem ? [{ title: "Problema", paragraphs: [project.problem] }] : []),
     ...(project.solution ? [{ title: "Solução", paragraphs: [project.solution] }] : []),
@@ -108,10 +108,11 @@ export default async function ProjetoPage({ params }: Props) {
     ...(project.benefits?.length
       ? [{ title: "Benefícios e diferenciais", list: project.benefits }]
       : []),
-    ...(project.architecture ? [{ title: "Arquitetura", paragraphs: [project.architecture] }] : []),
+    ...(project.architecture ? [{ title: "Arquitetura", paragraphs: project.architecture.split('\n\n').filter(Boolean) }] : []),
     ...(project.highlights?.length
       ? [{ title: "Destaques técnicos", list: project.highlights }]
       : []),
+    ...(project.tests?.length ? [{ title: "Testes automatizados", list: project.tests }] : []),
     ...(project.challenges?.length
       ? [{ title: "Desafios técnicos", list: project.challenges }]
       : []),

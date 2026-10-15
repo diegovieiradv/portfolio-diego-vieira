@@ -205,6 +205,69 @@ export const projects: Project[] = [
     category: "IA",
   },
   {
+    title: "Busca CEP",
+    slug: "busca-cep",
+    summary:
+      "Aplicação Full Stack para consulta de endereços brasileiros por CEP, desenvolvida com Java, Spring Boot e Next.js, integrando uma API REST própria ao serviço ViaCEP.",
+    description:
+      "O frontend foi construído com Next.js 16 (App Router), React 19 e TypeScript, estilizado com Tailwind CSS. A interface é responsiva, exibe estados de carregamento e erro, e consome a API própria via variável de ambiente NEXT_PUBLIC_API_BASE_URL.\n\nO backend é uma API REST em Java 21 com Spring Boot 3.5.16 e Maven. O endpoint GET /api/cep/{cep} recebe CEP com ou sem hífen, valida 8 dígitos, normaliza e consulta o ViaCEP. A arquitetura segue separação de responsabilidades: CepController → CepService → {CepValidator, ViaCepClient} → ViaCEP externo.\n\nValidação, integração e tratamento de erros são centralizados: CepValidator garante formato; ViaCepClient encapsula a chamada HTTP e mapeia respostas; GlobalExceptionHandler converte exceções em ErrorResponse padronizado com códigos HTTP adequados (400 CEP inválido, 404 não encontrado, 502 falha externa).\n\nO projeto demonstra integração Full Stack real com testes automatizados em ambas as camadas: 62 testes no backend (JUnit 5 + Spring Boot Test) e 9 no frontend (Jest), todos passando. Deploy E2E validado em Render (backend) e Vercel (frontend).",
+    problem:
+      "Consultar endereços por CEP é uma necessidade recorrente em formulários e sistemas brasileiros, mas integrar o ViaCEP diretamente no frontend expõe a dependência externa, dificulta validação consistente e torna o tratamento de erros disperso. Equipes repetem a mesma lógica de normalização, chamada HTTP e mapeamento de resposta em cada novo projeto, sem padronização de contratos de erro nem cobertura de testes.",
+    solution:
+      "Criar uma API REST própria (GET /api/cep/{cep}) que encapsula a integração com o ViaCEP, padroniza validação de entrada, normalização de CEP (com/sem hífen), mapeamento de resposta (EnderecoResponse) e erros (ErrorResponse com códigos HTTP semânticos). O frontend consome essa API própria, isolando a dependência externa e ganhando contrato estável, testável e reutilizável.",
+    audience:
+      "Desenvolvedores Full Stack que precisam integrar consulta de CEP em aplicações brasileiras e buscam um padrão reutilizável de API própria + frontend desacoplado, com validação, tratamento de erros e testes automatizados.",
+    features: [
+      "Consulta de endereço por CEP (8 dígitos)",
+      "Aceita CEP com ou sem hífen (ex.: 01310-100 ou 01310100)",
+      "Normalização automática do CEP antes da consulta",
+      "Integração com API ViaCEP via cliente HTTP dedicado",
+      "Endpoint REST GET /api/cep/{cep} com contrato estável",
+      "Validação de formato: 400 para CEP inválido",
+      "Resposta 404 quando CEP não encontrado no ViaCEP",
+      "Resposta 502 quando falha na comunicação com ViaCEP",
+      "DTOs tipados: EnderecoResponse e ErrorResponse",
+      "Tratamento global de exceções (GlobalExceptionHandler)",
+      "Configuração de URLs por ambiente (application.yml / application-prod.yml e NEXT_PUBLIC_API_BASE_URL)",
+      "Interface responsiva com estados de carregamento e erro",
+      "Deploy E2E validado: Render (backend) + Vercel (frontend)",
+    ],
+    benefits: [
+      "Encapsula dependência externa (ViaCEP) atrás de API própria",
+      "Contrato de erro padronizado com códigos HTTP semânticos",
+      "Validação e normalização centralizadas no backend",
+      "Separação clara de responsabilidades (Controller, Service, Validator, Client)",
+      "Testes automatizados em ambas as camadas (62 backend + 9 frontend)",
+      "Configuração por ambiente sem código duplicado",
+      "CORS configurado para consumo seguro pelo frontend",
+      "Deploy em plataformas diferentes (Render + Vercel) com variáveis de ambiente",
+    ],
+    architecture:
+      "CepController (REST endpoint)\n  └─> CepService (orquestração)\n        ├─> CepValidator (validação 8 dígitos, normalização)\n        └─> ViaCepClient (HTTP client → ViaCEP)\n              └─> Mapeia para EnderecoResponse / ErrorResponse\n\nGlobalExceptionHandler intercepta exceções e retorna ErrorResponse com status HTTP apropriado.\n\nCorsConfig libera origem do frontend.\n\nConfiguração por perfil: application.yml (local) / application-prod.yml (Render).\nFrontend: NEXT_PUBLIC_API_BASE_URL aponta para URL do backend no ambiente.",
+    highlights: [
+      "DTOs tipados (EnderecoResponse, ErrorResponse) garantem contrato estável entre backend e frontend",
+      "Tratamento global de exceções (@ControllerAdvice) converte falhas em respostas HTTP semânticas (400/404/502)",
+      "Separação de responsabilidades: Controller (HTTP), Service (regras), Validator (entrada), Client (integração externa)",
+      "CORS configurado programaticamente (CorsConfig) para origem do frontend em produção",
+      "URLs da API ViaCEP externalizadas por perfil Spring (application.yml / application-prod.yml)",
+      "Frontend consome API própria via NEXT_PUBLIC_API_BASE_URL (build-time no Vercel, runtime no Next.js)",
+    ],
+    technologies: ["Java", "Spring Boot", "APIs REST", "Next.js", "React", "TypeScript", "Tailwind CSS", "Docker", "Vercel", "Git", "GitHub"],
+    status: "concluído",
+    role: "Desenvolvedor Full Stack (backend + frontend + infra + testes)",
+    github: "https://github.com/diegovieiradv/project-busca-cep",
+    demo: "https://project-busca-cep.vercel.app",
+    images: ["/projects/busca-cep.png"],
+    featured: false,
+    category: "Full stack",
+    date: "2026",
+    tests: [
+      "Backend: 62 testes (JUnit 5 + Spring Boot Test) — validação, service, client, controller, exception handler",
+      "Frontend: 9 testes (Jest + React Testing Library) — renderização, estados, integração com API mockada",
+      "Todos os testes executados com sucesso (BUILD SUCCESS / PASS)",
+    ],
+  },
+  {
     title: "CloudVault",
     slug: "cloudvault",
     summary:

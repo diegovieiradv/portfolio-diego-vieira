@@ -15,6 +15,7 @@ export type Project = {
   plannedTechnologies?: string[];
   architecture?: string;
   challenges?: string[];
+  tests?: string[];
   learnings?: string[];
   roadmap?: string[];
   status: ProjectStatus;
