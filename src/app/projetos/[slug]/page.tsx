@@ -73,6 +73,7 @@ type ContentSection = {
   paragraphs?: string[];
   list?: string[];
   note?: string;
+  preserveWhitespace?: boolean;
 };
 
 const bulletItemClass = "flex items-start gap-3 text-base leading-relaxed text-secondary";
@@ -108,7 +109,15 @@ export default async function ProjetoPage({ params }: Props) {
     ...(project.benefits?.length
       ? [{ title: "Benefícios e diferenciais", list: project.benefits }]
       : []),
-    ...(project.architecture ? [{ title: "Arquitetura", paragraphs: project.architecture.split('\n\n').filter(Boolean) }] : []),
+    ...(project.architecture
+      ? [
+          {
+            title: "Arquitetura",
+            paragraphs: project.architecture.split('\n\n').filter(Boolean),
+            preserveWhitespace: true,
+          },
+        ]
+      : []),
     ...(project.highlights?.length
       ? [{ title: "Destaques técnicos", list: project.highlights }]
       : []),
@@ -215,7 +224,13 @@ export default async function ProjetoPage({ params }: Props) {
                     {section.title}
                   </h2>
                   {section.paragraphs?.map((paragraph) => (
-                    <p key={paragraph} className="mt-3 text-base leading-relaxed text-secondary">
+                    <p
+                      key={paragraph}
+                      className={cn(
+                        "mt-3 text-base leading-relaxed text-secondary",
+                        section.preserveWhitespace && "whitespace-pre-line"
+                      )}
+                    >
                       {paragraph}
                     </p>
                   ))}
