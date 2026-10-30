@@ -6,7 +6,9 @@ import { ArrowLeft, ArrowUpRight, FolderGit2, MonitorPlay } from "lucide-react";
 import { projects, getProjectBySlug } from "@/data/projects";
 import type { Project } from "@/types/project";
 import { Container } from "@/components/ui/Container";
+import { ProjectGallery } from "@/components/ui/ProjectGallery";
 import { ProjectNavigation } from "@/components/ui/ProjectNavigation";
+import { statusStyles } from "@/lib/project-status";
 import { cn } from "@/lib/utils";
 
 function sectionId(title: string): string {
@@ -62,16 +64,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const statusStyles: Record<Project["status"], string> = {
-  concluído: "bg-success/15 text-success",
-  "em desenvolvimento": "bg-warning/15 text-warning",
-  planejado: "bg-muted/15 text-muted",
-};
-
 type ContentSection = {
   title: string;
   paragraphs?: string[];
   list?: string[];
+  groups?: NonNullable<Project["technologyGroups"]>;
   note?: string;
   preserveWhitespace?: boolean;
 };
@@ -88,10 +85,14 @@ export default async function ProjetoPage({ params }: Props) {
   const sections: ContentSection[] = [
     {
       title: "Sobre o projeto",
-      paragraphs: project.description.split('\n\n').filter(Boolean),
+      paragraphs: project.description.split("\n\n").filter(Boolean),
     },
-    ...(project.problem ? [{ title: "Problema", paragraphs: [project.problem] }] : []),
-    ...(project.solution ? [{ title: "Solução", paragraphs: [project.solution] }] : []),
+    ...(project.problem
+      ? [{ title: "Problema", paragraphs: project.problem.split("\n\n").filter(Boolean) }]
+      : []),
+    ...(project.solution
+      ? [{ title: "Solução", paragraphs: project.solution.split("\n\n").filter(Boolean) }]
+      : []),
     ...(project.audience ? [{ title: "Para quem é", paragraphs: [project.audience] }] : []),
     ...(project.features?.length
       ? [
@@ -113,15 +114,28 @@ export default async function ProjetoPage({ params }: Props) {
       ? [
           {
             title: "Arquitetura",
-            paragraphs: project.architecture.split('\n\n').filter(Boolean),
+            paragraphs: project.architecture.split("\n\n").filter(Boolean),
             preserveWhitespace: true,
           },
         ]
       : []),
+    ...(project.technologyGroups?.length
+      ? [
+          {
+            title: "Tecnologias",
+            groups: project.technologyGroups,
+            note: project.technologyGroupsNote,
+          },
+        ]
+      : []),
+    ...(project.security?.length ? [{ title: "Segurança", list: project.security }] : []),
     ...(project.highlights?.length
       ? [{ title: "Destaques técnicos", list: project.highlights }]
       : []),
     ...(project.tests?.length ? [{ title: "Testes automatizados", list: project.tests }] : []),
+    ...(project.statusDetails?.length
+      ? [{ title: "Status do projeto", list: project.statusDetails }]
+      : []),
     ...(project.challenges?.length
       ? [{ title: "Desafios técnicos", list: project.challenges }]
       : []),
@@ -185,17 +199,25 @@ export default async function ProjetoPage({ params }: Props) {
 
       <div className="py-14 sm:py-16">
         <Container>
-          <div className="overflow-hidden rounded-2xl border border-border">
-            <Image
-              src={project.images[0] ?? "/projects/placeholder.png"}
-              alt={`Imagem principal do projeto ${project.title}`}
-              width={1200}
-              height={675}
-              sizes="(max-width: 1024px) 100vw, 1152px"
-              loading="eager"
-              className="aspect-video w-full object-cover"
+          {project.images.length > 1 ? (
+            <ProjectGallery
+              images={project.images}
+              captions={project.imageCaptions}
+              projectName={project.title}
             />
-          </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl border border-border">
+              <Image
+                src={project.images[0] ?? "/projects/placeholder.png"}
+                alt={`Imagem principal do projeto ${project.title}`}
+                width={1200}
+                height={675}
+                sizes="(max-width: 1024px) 100vw, 1152px"
+                loading="eager"
+                className="aspect-video w-full object-cover"
+              />
+            </div>
+          )}
 
           <ProjectNavigation currentSlug={project.slug} projects={projects} />
 
@@ -213,10 +235,7 @@ export default async function ProjetoPage({ params }: Props) {
           <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_320px]">
             <div className="space-y-12">
               {sections.map((section) => (
-                <section
-                  key={section.title}
-                  aria-labelledby={sectionId(section.title)}
-                >
+                <section key={section.title} aria-labelledby={sectionId(section.title)}>
                   <h2
                     id={sectionId(section.title)}
                     className="text-2xl font-semibold text-foreground"
@@ -247,31 +266,30 @@ export default async function ProjetoPage({ params }: Props) {
                       ))}
                     </ul>
                   ) : null}
+                  {section.groups?.length ? (
+                    <div className="mt-5 space-y-5">
+                      {section.groups.map((group) => (
+                        <div key={group.label}>
+                          <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                            {group.label}
+                          </p>
+                          <ul className="mt-3 flex flex-wrap gap-2">
+                            {group.items.map((item) => (
+                              <li
+                                key={item}
+                                className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs text-secondary"
+                              >
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                   {section.note ? <p className="mt-3 text-sm text-muted">{section.note}</p> : null}
                 </section>
               ))}
-
-              {project.images.length > 1 ? (
-                <section aria-labelledby={sectionId("Galeria")}>
-                  <h2 id={sectionId("Galeria")} className="text-2xl font-semibold text-foreground">
-                    Galeria
-                  </h2>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    {project.images.map((image, index) => (
-                      <div key={image} className="overflow-hidden rounded-xl border border-border">
-                        <Image
-                          src={image}
-                          alt={`Captura de tela ${index + 1} do projeto ${project.title}`}
-                          width={600}
-                          height={338}
-                          sizes="(max-width: 640px) 100vw, 50vw"
-                          className="aspect-video w-full object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null}
             </div>
 
             <aside aria-label="Informações do projeto">
