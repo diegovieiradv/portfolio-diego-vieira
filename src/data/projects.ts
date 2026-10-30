@@ -107,6 +107,8 @@ export const projects: Project[] = [
       "Dashboard do Sentinel",
       "Visão principal da plataforma",
     ],
+    github: "https://github.com/diegovieiradv/project-sentinel",
+    demo: "https://project-sentinel-kohl.vercel.app",
     featured: true,
     category: "Back-end",
   },
